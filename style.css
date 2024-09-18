@@ -1,0 +1,6 @@
+.student_info{
+  width: 200px;
+  height: auto;
+  border: 2, black; 
+  justify-content: flex-start;
+}

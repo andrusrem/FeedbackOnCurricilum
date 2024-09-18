@@ -1,13 +1,14 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div class="container-sm">
-    Welcome <?php echo $_GET["Name"]; ?><br>
-    Your Group is: <?php echo $_GET["Group"]; ?><br>
-    Give us feedback to <?php echo $_GET["Class"]; ?>
+<h1 style="text-align: center;">Thank you, <?php echo $_GET["Name"]; ?>!</h1>
+<div class="container-sm border-rounded" style="text-align: center;">
+    <p>Your Group is: <?php echo $_GET["Group"]; ?></p>
+   
+    <p>You gived <?php echo $_GET["Class"]; ?> class <?php echo $_GET["inlineRadioOptions"].value; ?> points</p>
 </div>
 
 
