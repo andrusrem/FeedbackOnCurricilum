@@ -12,8 +12,8 @@ try {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         grade INTEGER NOT NULL,
         comment TEXT,
-        student_id INTEGER NOT NULL,
-        class_id INTEGER NOT NULL
+        student_name TEXT NOT NULL,
+        class_name TEXT NOT NULL
     )");
     $pdo->exec("CREATE TABLE IF NOT EXISTS students (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

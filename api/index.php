@@ -1,9 +1,9 @@
 <?php
 
-
+use Api\Controllers\GradeController;
 // Include database connection and controller
-include_once 'config.php';
-include_once '\api\Controllers\GradeController';
+include_once __DIR__ .'/config.php';
+include_once __DIR__.'/Controllers/GradeController.php';
 
 // Set the headers for CORS and content type
 header("Access-Control-Allow-Origin: *");

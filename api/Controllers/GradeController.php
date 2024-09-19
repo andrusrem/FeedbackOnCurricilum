@@ -2,13 +2,17 @@
 
 namespace Api\Controllers;
 use PDO;
+include_once __DIR__."/StudentController.php";
+
+
 class GradeController
 {
     private $pdo;
-
     public function __construct($pdo) {
         $this->pdo = $pdo;
+        
     }
+    
     // Function to get all grades
     public function getGrades()
     {
@@ -34,25 +38,34 @@ class GradeController
     public function createGrade()
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($data['grade']) && isset($data['student_id']) && isset($data['class_id'])) {
-            $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_id, class_id) VALUES (?, ?, ?, ?)");
-            if ($stmt->execute([$data['grade'], $data['comment'], $data['student_id'], $data['class_id']])) {
-                echo json_encode(["message" => "Grade created successfully"]);
-            } else {
-                echo json_encode(["message" => "Failed to create grade"]);
-            }
-        } else {
+        $studentContr = new StudentController($this->pdo);
+        $student = $studentContr->getStudentById($this->pdo, $data["student_name"]);
+        $class = $this->pdo->prepare("SELECT * FROM classes WHERE class_name = ?");
+        if ($student == null) {
             echo json_encode(["message" => "Invalid input"]);
         }
+        else{
+            if (isset($data['grade']) && isset($data['student_name']) && isset($data['class_name'])) {
+                $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
+                if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
+                    echo json_encode(["message" => "Grade created successfully"]);
+                } else {
+                    echo json_encode(["message" => "Failed to create grade"]);
+                }
+            } else {
+                echo json_encode(["message" => "Invalid input"]);
+            }
+        }
+        
     }
 
     // Function to update grade by ID
     public function updateGrade($id)
     {
         $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($data['grade']) && isset($data['student_id']) && isset($data['class_id'])) {
-            $stmt = $this->pdo->prepare("UPDATE grades SET grade = ?, comment = ?, student_id = ?, class_id = ? WHERE id = ?");
-            if ($stmt->execute([$data['grade'], $data['comment'], $data['student_id'], $data['class_id'], $id])) {
+        if (isset($data['grade']) && isset($data['student_name']) && isset($data['class_name'])) {
+            $stmt = $this->pdo->prepare("UPDATE grades SET grade = ?, comment = ?, student_name = ?, class_name = ? WHERE id = ?");
+            if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name'], $id])) {
                 echo json_encode(["message" => "Grade updated successfully"]);
             } else {
                 echo json_encode(["message" => "Failed to update grade"]);
@@ -72,6 +85,8 @@ class GradeController
             echo json_encode(["message" => "Failed to delete grade"]);
         }
     }
+
+    
 }
 
 

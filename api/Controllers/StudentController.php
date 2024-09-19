@@ -8,6 +8,11 @@ $pdo = new PDO("sqlite:$db_file");
 
 class StudentController
 {
+    private $pdo;
+
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
     // Function to get all students
     function getStudents($pdo)
     {
@@ -19,7 +24,7 @@ class StudentController
     // Function to get student by ID
     function getStudentById($pdo, $id)
     {
-        $stmt = $pdo->prepare("SELECT * FROM students WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT * FROM students WHERE student_name = ?");
         $stmt->execute([$id]);
         $student = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($student) {
