@@ -8,6 +8,11 @@ try {
     // Set error mode to exceptions
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
+    $pdo->exec("PRAGMA journal_mode=WAL;");
+    
+    // Set timeout for database operations
+    $pdo->setAttribute(PDO::ATTR_TIMEOUT, 5); // 5 seconds
+    
     $pdo->exec("CREATE TABLE IF NOT EXISTS grades (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         grade INTEGER NOT NULL,
