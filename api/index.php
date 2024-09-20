@@ -17,7 +17,7 @@ $gradeController = new GradeController($pdo);
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Get the path and split it into array
-$request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
+$request = explode('/', trim($_SERVER['PATH_INFO'] ?? '', '/'));
 
 // Example API: /api/grades or /api/grades/{id}
 // Determine which method to call based on the request
@@ -29,14 +29,19 @@ switch ($method) {
             $gradeController->getGrades();
         }
         break;
-    case 'POST':
-        $gradeController->createGrade();
-        break;
-    case 'PUT':
-        if (isset($request[1])) {
-            $gradeController->updateGrade($request[1]);
-        }
-        break;
+        case 'POST':
+            $data = json_decode(file_get_contents("php://input"), true);
+            if (!$data) {
+                $data = $_POST;
+            }
+        
+            $gradeController->createGrade($data);
+            break;
+        case 'PUT':
+            if (isset($request[1])) {
+                $gradeController->updateGrade($request[1]);
+            }
+            break;
     case 'DELETE':
         if (isset($request[1])) {
             $gradeController->deleteGrade($request[1]);
@@ -46,6 +51,3 @@ switch ($method) {
         echo json_encode(["message" => "Method not allowed"]);
         break;
 }
-
-
-?>

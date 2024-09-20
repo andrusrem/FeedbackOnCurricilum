@@ -26,12 +26,7 @@ class StudentController
     {
         $stmt = $pdo->prepare("SELECT * FROM students WHERE student_name = ?");
         $stmt->execute([$id]);
-        $student = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($student) {
-            echo json_encode($student);
-        } else {
-            echo json_encode(["message" => "Student not found"]);
-        }
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 
     // Function to create a new grade

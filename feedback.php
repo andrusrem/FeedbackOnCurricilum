@@ -4,11 +4,11 @@
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<h1 style="text-align: center;">Thank you, <?php echo $_GET["Name"]; ?>!</h1>
+<h1 style="text-align: center;">Thank you, <?php echo $_POST["student_name"]; ?>!</h1>
 <div class="container-sm border-rounded" style="text-align: center;">
-    <p>Your Group is: <?php echo $_GET["Group"]; ?></p>
+    <p>Your Group is: <?php echo $_POST["group_name"]; ?></p>
    
-    <p>You gived <?php echo $_GET["Class"]; ?> class <?php echo $_GET["inlineRadioOptions"].value; ?> points</p>
+    <p>You gived <?php echo $_POST["class_name"]; ?> class <?php echo $_POST["grade"]; ?> points</p>
 </div>
 
 

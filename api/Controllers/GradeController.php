@@ -35,30 +35,27 @@ class GradeController
     }
 
     // Function to create a new grade
-    public function createGrade()
+    public function createGrade($data)
     {
-        $data = json_decode(file_get_contents("php://input"), true);
+        if (!isset($data['grade']) && isset($data['student_name']) && isset($data['class_name'])) {
+            header('Location: ../index.php');
+            return;
+        }
         $studentContr = new StudentController($this->pdo);
         $student = $studentContr->getStudentById($this->pdo, $data["student_name"]);
-        $class = $this->pdo->prepare("SELECT * FROM classes WHERE class_name = ?");
         if ($student == null) {
-            echo json_encode(["message" => "Invalid input"]);
+            header('Location: ../index.php');
+            return;
         }
-        else{
-            if (isset($data['grade']) && isset($data['student_name']) && isset($data['class_name'])) {
-                $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
-                if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
-                    echo json_encode(["message" => "Grade created successfully"]);
-                } else {
-                    echo json_encode(["message" => "Failed to create grade"]);
-                }
-            } else {
-                echo json_encode(["message" => "Invalid input"]);
-            }
+        $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
+        if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
+                header('Location: ../feedback.php');
+                echo json_encode(["message" => "Grade created successfully"]);
+        } else {
+                echo json_encode(["message" => "Failed to create grade"]);
         }
-        
     }
-
+        
     // Function to update grade by ID
     public function updateGrade($id)
     {
@@ -88,7 +85,5 @@ class GradeController
 
     
 }
-
-
 
 ?>
