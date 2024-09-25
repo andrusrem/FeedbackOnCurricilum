@@ -7,16 +7,16 @@
 </head>
 
 <body class="bg-light">
-    <h1 class="fw-lighter text-center m-3" style="letter-spacing: .5rem">FEEDBACK FORM</h1>
+    <h1 class="fw-lighter text-center m-5" style="letter-spacing: .5rem">FEEDBACK FORM</h1>
     <form action="api/index.php" method="POST">
         <div class="container-sm w-25 d-flex flex-column">
             <div class="mb-3 fs-4 fw-light">
-                <label for="group_name" class="form-label">Group<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="Group" name="group_name" placeholder="Your group" required>
-            </div>
-            <div class="mb-5 fs-4 fw-light">
                 <label for="student_name" class="form-label">Name<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="Name" name="student_name" placeholder="Your name" required>
+            </div>
+            <div class="mb-5 fs-4 fw-light">
+                <label for="group_name" class="form-label">Group<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="Group" name="group_name" placeholder="Your group" required>
             </div>
             <div class="mb-4">
                 <select class="form-select form-select-lg mb-3 fw-light fs-6" id="Class" name="class_name" required

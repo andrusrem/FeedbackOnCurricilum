@@ -37,19 +37,19 @@ class GradeController
     // Function to create a new grade
     public function createGrade($data)
     {
-        if (!isset($data['grade']) && isset($data['student_name']) && isset($data['class_name'])) {
-            header('Location: ../index.php');
+        if (!isset($data['grade']) || !isset($data['student_name']) || !isset($data['class_name'])) {
+            header('Location: ../error.php?message=' . urlencode("Some fields are missing"));
             return;
         }
         $studentContr = new StudentController($this->pdo);
-        $student = $studentContr->getStudentById($this->pdo, $data["student_name"]);
+        $student = $studentContr->getStudentByNameAndGroup($this->pdo, $data["student_name"], $data["group_name"]);
         if ($student == null) {
-            header('Location: ../index.php');
+            header('Location: ../error.php?message=' . urlencode("Student '" . $data["student_name"] . "' not found in group '" . $data["group_name"] . "'"));
             return;
         }
         $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
         if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
-                header('Location: ../feedback.php');
+                header('Location: ../feedback.php?student_name=' . urlencode($data['student_name']) . '&group_name=' . urlencode($data['group_name']) . '&class_name=' . urlencode($data['class_name']) . '&grade=' . urlencode($data['grade']));
                 echo json_encode(["message" => "Grade created successfully"]);
         } else {
                 echo json_encode(["message" => "Failed to create grade"]);

@@ -37,7 +37,7 @@ try {
         // Insert some initial grades
         $pdo->exec("INSERT INTO students (group_name, student_name) VALUES 
             ('TA-22V', 'Andrus Remets'),
-            ('TA-22V', 'Daniel Capineanu'),
+            ('TA-22V', 'Daniel Carpineanu'),
             ('TA-22V', 'Aleks-Andres Revkuts'),
             ('TA-22V', 'Maksim Teterin'),
             ('TA-22V', 'Aleksei Silber')

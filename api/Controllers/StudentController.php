@@ -22,11 +22,11 @@ class StudentController
     }
 
     // Function to get student by ID
-    function getStudentById($pdo, $id)
+    function getStudentByNameAndGroup($pdo, $name, $group)
     {
-        $stmt = $pdo->prepare("SELECT * FROM students WHERE student_name = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC); 
+        $stmt = $pdo->prepare("SELECT * FROM students WHERE student_name = ? AND group_name = ? COLLATE NOCASE"); # COLLATE NOCASE means search with case insensitive
+        $stmt->execute([$name, $group]);
+        return $stmt->fetch(PDO::FETCH_OBJ); 
     }
 
     // Function to create a new grade
