@@ -47,6 +47,7 @@ class GradeController
             header('Location: ../error.php?message=' . urlencode("Student '" . $data["student_name"] . "' not found in group '" . $data["group_name"] . "'"));
             return;
         }
+        // TODO: Check comment for innaproppriate words and long size
         $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
         if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
                 header('Location: ../feedback.php?student_name=' . urlencode($data['student_name']) . '&group_name=' . urlencode($data['group_name']) . '&class_name=' . urlencode($data['class_name']) . '&grade=' . urlencode($data['grade']));
