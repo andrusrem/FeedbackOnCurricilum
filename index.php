@@ -11,17 +11,17 @@
     <form action="api/index.php" method="POST">
         <div class="container-sm w-25 d-flex flex-column">
             <div class="mb-3 fs-4 fw-light">
-                <label for="group_name" class="form-label">Group</label>
-                <input type="text" class="form-control" id="Group" name="group_name" placeholder="Your group">
+                <label for="group_name" class="form-label">Group<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="Group" name="group_name" placeholder="Your group" required>
             </div>
             <div class="mb-5 fs-4 fw-light">
-                <label for="student_name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="Name" name="student_name" placeholder="Your name">
+                <label for="student_name" class="form-label">Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="Name" name="student_name" placeholder="Your name" required>
             </div>
             <div class="mb-4">
-                <select class="form-select form-select-lg mb-3 fw-light fs-6" id="Class" name="class_name"
+                <select class="form-select form-select-lg mb-3 fw-light fs-6" id="Class" name="class_name" required
                     aria-label="Large select example">
-                    <option selected>Choose class for feedback</option>
+                    <option selected value="">Choose class for feedback<span class="text-danger">*</span></option>
                     <option value="English">English</option>
                     <option value="Math">Math</option>
                     <option value="Programming">Programming</option>
@@ -29,30 +29,30 @@
             </div>
             
             <div class="container mb-5 text-center">
-                <h3 class="fw-lighter" style="letter-spacing:.1rem;" >Satisfaction with this course</h3>
+                <h3 class="fw-lighter" style="letter-spacing:.1rem;" >Satisfaction with this course<span class="text-danger">*</span></h3>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="grade" id="inlineRadio1"
-                        value="1">
+                        value="1" required>
                     <label class="form-check-label" for="grade">1</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="grade" id="inlineRadio2"
-                        value="2">
+                        value="2" required>
                     <label class="form-check-label" for="grade">2</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="grade" id="inlineRadio3"
-                        value="3">
+                        value="3" required>
                     <label class="form-check-label" for="grade">3</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="grade" id="inlineRadio4"
-                        value="4">
+                        value="4" required>
                     <label class="form-check-label" for="grade">4</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="grade" id="inlineRadio5"
-                        value="5">
+                        value="5" required>
                     <label class="form-check-label" for="grade">5</label>
                 </div>
             </div>
