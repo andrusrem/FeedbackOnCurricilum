@@ -2,23 +2,34 @@
 
 namespace Api\Controllers;
 use PDO;
-include_once __DIR__."/StudentController.php";
+include_once __DIR__ . "/StudentController.php";
 
 
 class GradeController
 {
     private $pdo;
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
-        
+
     }
-    
+
     // Function to get all grades
     public function getGrades()
     {
         $stmt = $this->pdo->query("SELECT * FROM grades");
         $grades = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($grades);
+    }
+    public function allGrades()
+    {
+        var_dump($this->pdo);
+        $stmt = $this->pdo->query("SELECT grade, class_name FROM grades");
+
+        
+        $grades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($grades);
+        return $grades;
     }
 
     // Function to get grade by ID
@@ -50,13 +61,13 @@ class GradeController
         // TODO: Check comment for innaproppriate words and long size
         $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
         if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
-                header('Location: ../feedback.php?student_name=' . urlencode($data['student_name']) . '&group_name=' . urlencode($data['group_name']) . '&class_name=' . urlencode($data['class_name']) . '&grade=' . urlencode($data['grade']));
-                echo json_encode(["message" => "Grade created successfully"]);
+            header('Location: ../feedback.php?student_name=' . urlencode($data['student_name']) . '&group_name=' . urlencode($data['group_name']) . '&class_name=' . urlencode($data['class_name']) . '&grade=' . urlencode($data['grade']));
+            echo json_encode(["message" => "Grade created successfully"]);
         } else {
-                echo json_encode(["message" => "Failed to create grade"]);
+            echo json_encode(["message" => "Failed to create grade"]);
         }
     }
-        
+
     // Function to update grade by ID
     public function updateGrade($id)
     {
@@ -84,7 +95,7 @@ class GradeController
         }
     }
 
-    
+
 }
 
-?>
+
