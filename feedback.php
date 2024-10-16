@@ -9,7 +9,10 @@
     <p>Your Group is: <?php echo $_GET["group_name"]; ?></p>
     <p>You gived <?php echo $_GET["class_name"]; ?> class <?php echo $_GET["grade"]; ?> points</p>
 </div>
+<form action="/api/index.php" method="GET">
 
+        <button class="btn btn-primary" type="submit">Check average grade for all classes</button>
+    </form>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -23,13 +23,71 @@ class GradeController
     }
     public function allGrades()
     {
-        var_dump($this->pdo);
-        $stmt = $this->pdo->query("SELECT grade, class_name FROM grades");
 
-        
+        $stmt = $this->pdo->query("SELECT * FROM grades");
+
+
         $grades = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($grades);
-        return $grades;
+        $avg = [
+            "English" => 0,
+            "Programming" => 0,
+            "Math" => 0,
+        ];
+        $count = [
+            "English" => 0,
+            "Programming" => 0,
+            "Math" => 0,
+        ];
+
+        foreach ($grades as $grade) {
+             // Check the structure of each grade
+            if (isset($grade['class_name']) && isset($grade['grade'])) {
+                if (isset($avg[$grade['class_name']])) {
+                    $avg[$grade['class_name']] += $grade['grade'];
+                    $count[$grade['class_name']]++;
+                }
+            } else {
+                echo "Invalid grade structure: ";
+                 // Show the problematic structure
+            }
+        }
+
+        foreach ($avg as $class => $totalGrade) {
+            if ($count[$class] > 0) {
+                $avg[$class] = $totalGrade / $count[$class];
+            }
+        }
+        echo "
+        <html>
+<head>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'
+        integrity='sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH' crossorigin='anonymous'>
+    <link rel='stylesheet' href='./style.css'>
+</head>
+<body>
+        <div class='container'>
+        <table class='table'>
+        <tr>
+        <th>Class Name</th>
+        <th>Grade Count</th>
+        <th>Average Grade</th>
+        </tr>
+        <tr>
+    <td>English</td>
+    <td>{$count['English']}</td>
+    <td>{$avg['English']}</td>
+</tr>
+<tr>
+    <td>Programming</td>
+    <td>{$count['Programming']}</td>
+    <td>{$avg['Programming']}</td>
+</tr>
+<tr>
+    <td>Math</td>
+    <td>{$count['Math']}</td>
+    <td>{$avg['Math']}</td>
+</tr></table></div>";
+        ;
     }
 
     // Function to get grade by ID
@@ -62,7 +120,7 @@ class GradeController
         $stmt = $this->pdo->prepare("INSERT INTO grades (grade, comment, student_name, class_name) VALUES (?, ?, ?, ?)");
         if ($stmt->execute([$data['grade'], $data['comment'], $data['student_name'], $data['class_name']])) {
             header('Location: ../feedback.php?student_name=' . urlencode($data['student_name']) . '&group_name=' . urlencode($data['group_name']) . '&class_name=' . urlencode($data['class_name']) . '&grade=' . urlencode($data['grade']));
-            echo json_encode(["message" => "Grade created successfully"]);
+            //echo json_encode(["message" => "Grade created successfully"]);
         } else {
             echo json_encode(["message" => "Failed to create grade"]);
         }

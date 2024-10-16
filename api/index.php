@@ -6,10 +6,10 @@ include_once __DIR__ .'/config.php';
 include_once __DIR__.'/Controllers/GradeController.php';
 
 // Set the headers for CORS and content type
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// header("Access-Control-Allow-Origin: *");
+// header("Content-Type: application/json; charset=UTF-8");
+// header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
+// header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // Instantiate the controller with the database connection
 $gradeController = new GradeController($pdo);
@@ -26,7 +26,7 @@ switch ($method) {
         if (isset($request[1])) {
             $gradeController->getGradeById($request[1]);
         } else {
-            $gradeController->getGrades();
+            $gradeController->allGrades();
         }
         break;
         case 'POST':
@@ -51,3 +51,9 @@ switch ($method) {
         echo json_encode(["message" => "Method not allowed"]);
         break;
 }
+?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>

@@ -53,7 +53,7 @@ try {
         );
         echo "Initial classes added!";
     }
-    echo "Connected successfully";
+    //echo "Connected successfully";
     
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
